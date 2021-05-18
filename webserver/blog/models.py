@@ -46,14 +46,14 @@ class Tag(CreatedTime):
         verbose_name = verbose_name_plural = '标签'
 
 
-class Post(CreatedTime):
+class Article(CreatedTime):
     STATUS_NORMAL = 1
     STATUS_DELETE = 0
     STATUS_DRAFT = 2
     STATUS_ITEMS = (
-        (STATUS_DELETE, "删除"),
+        (STATUS_DRAFT, "草稿"),
         (STATUS_NORMAL, "正常"),
-        (STATUS_DRAFT, "草稿")
+        (STATUS_DELETE, "删除")
     )
 
     title = models.CharField(max_length=255, verbose_name="标题")
