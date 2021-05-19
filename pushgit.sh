@@ -31,8 +31,8 @@ git push github main  # push 到GitHub
 
 echo -e "\033[1m\033[33m ########## 切换分支并提交到 Gitee ############ \033[0m"  #
 
-git checkout gitee
-git merge github
+git checkout master
+git merge main
 
 echo -e "\033[1m\033[34m ${commit4} \033[0m"  # 蓝色字体
 git push gitee master  # push 到gitee
