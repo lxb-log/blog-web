@@ -29,5 +29,5 @@ git commit -m "${name}"
 echo -e "\033[35m ${commit3} \033[0m"  # 紫色字体
 git push github main  # push 到GitHub
 echo -e "\033[1m\033[34m ${commit4} \033[0m"  # 蓝色字体
-git push getee master  # push 到gitee
+git push gitee master  # push 到gitee
 
