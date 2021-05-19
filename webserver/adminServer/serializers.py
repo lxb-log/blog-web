@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from .models import Article, Tag
+from blog.models import Article, Tag
 
 
 

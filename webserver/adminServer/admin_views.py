@@ -1,10 +1,9 @@
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from blog.serializers import SerializerListArticle
+from adminServer.serializers import SerializerListArticle
 from blog.models import Article
 from rest_framework import status
-from django.http import Http404
 
 
 class ArticleListAPIView(APIView):
