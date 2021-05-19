@@ -15,8 +15,8 @@ fi
 commit1="执行命令 git add . "
 commit2="执行命令 git commit -m '${name}' "
 commit3="执行命令 git push github main "
+commit4="执行命令 git push gitee master "
 
-echo $commit2
 
 echo "本次git提交注释为: ${name}";
 
@@ -26,10 +26,8 @@ git add .
 echo -e "\033[1m\033[32m ${commit2} \033[0m"  # 绿色字体
 git commit -m "${name}"
 
-echo -e "\033[1m\033[34m ${commit3} \033[0m"  # 蓝色字体
-
 echo -e "\033[35m ${commit3} \033[0m"  # 紫色字体
-
-#git commit -m ${name}
-git push github main
+git push github main  # push 到GitHub
+echo -e "\033[1m\033[34m ${commit4} \033[0m"  # 蓝色字体
+git push getee master  # push 到gitee
 
