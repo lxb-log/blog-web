@@ -1,8 +1,8 @@
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import SerializerListArticle
-from .models import Article
+from blog.serializers import SerializerListArticle
+from blog.models import Article
 from rest_framework import status
 from django.http import Http404
 

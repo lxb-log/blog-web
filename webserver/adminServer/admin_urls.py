@@ -3,8 +3,7 @@
 # 博客管理后台的接口路由
 
 from django.urls import path
-from blog import admin_views
-
+from adminServer import admin_views
 
 urlpatterns = [
     path('books/', admin_views.ArticleListAPIView.as_view()),
