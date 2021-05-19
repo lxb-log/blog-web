@@ -27,8 +27,13 @@ echo -e "\033[1m\033[32m ${commit2} \033[0m"  # 绿色字体
 git commit -m "${name}"
 
 echo -e "\033[35m ${commit3} \033[0m"  # 紫色字体
-
 git push github main  # push 到GitHub
+
+echo -e "\033[1m\033[33m ########## 切换分支并提交到 Gitee ############ \033[0m"  #
+
+git checkout gitee
+git merge github
+
 echo -e "\033[1m\033[34m ${commit4} \033[0m"  # 蓝色字体
 git push gitee master  # push 到gitee
 
