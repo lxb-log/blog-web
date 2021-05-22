@@ -42,17 +42,38 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'corsheaders', # 解决跨域
+
     'blog',
+    'adminServer', # 后台管理
+    'users',
 ]
 
+
+# 指定本项目用户模型类:
+AUTH_USER_MODEL = 'users.User'
+
+# CORS跨域请求设置
+CORS_ORIGIN_WHITELIST = (
+    # 备注：允许源地址`http://127.0.0.1:8000`向当前API服务器发起跨域请求
+    'http://127.0.0.1:8000',
+    'http://localhost:8000',
+)
+
+CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
+
+
 MIDDLEWARE = [
+    # 注意：此中间件添加到中间件的第一个(CORS 跨域)
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'users.middleware.DIYAuthenticatedMiddlewareMixin'
 ]
 
 ROOT_URLCONF = 'webserver.urls'
@@ -133,4 +154,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 指定自定义的用户认证后端:
+AUTHENTICATION_BACKENDS = ['users.utils.UsernameEmailAuthBackend']
 

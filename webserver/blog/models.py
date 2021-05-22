@@ -1,7 +1,8 @@
-from django.contrib.auth.models import User
+
 from django.db import models
 
 # Create your models here.
+from users.models import User
 
 
 class CreatedTime(models.Model):
@@ -21,7 +22,7 @@ class Category(CreatedTime):
     )
 
     name = models.CharField(max_length=75, verbose_name="名称")
-    status = models.PositiveBigIntegerField(default=STATUS_DELETE, choices=STATUS_ITEMS, verbose_name="状态")
+    status = models.PositiveBigIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
     in_nav = models.BooleanField(default=False, verbose_name="是否为导航")
     owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
@@ -39,7 +40,7 @@ class Tag(CreatedTime):
     )
 
     name = models.CharField(max_length=15,  verbose_name="标签名称")
-    status = models.PositiveBigIntegerField(default=STATUS_DELETE, choices=STATUS_ITEMS, verbose_name="状态")
+    status = models.PositiveBigIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
     owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
 
     class Meta:
@@ -59,8 +60,8 @@ class Article(CreatedTime):
     title = models.CharField(max_length=255, verbose_name="标题")
     desc = models.CharField(max_length=1024, blank=True, verbose_name="摘要")
     content = models.TextField(verbose_name="正文", help_text="MarkDown格式")
-    status = models.PositiveBigIntegerField(default=STATUS_DELETE, choices=STATUS_ITEMS, verbose_name="状态")
-    tag = models.ManyToManyField(Tag, verbose_name="标签")
+    status = models.PositiveBigIntegerField(default=STATUS_DRAFT, choices=STATUS_ITEMS, verbose_name="状态")
+    tag = models.ManyToManyField(Tag, verbose_name="标签", blank=True)
     owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
     # 表示外键关联到分类表,当作者表删除了该条数据,表中不删除,仅仅是把外键置空
     category = models.ForeignKey(Category, verbose_name="分类", null=True, blank=True, on_delete=models.SET_NULL)

@@ -11,20 +11,45 @@ class SerializerTag(serializers.ModelSerializer):
         fields = ('id', 'name', 'created_time')
 
 
-class SerializerListArticle(serializers.ModelSerializer):
-    """ 文章列表与上传序列化器类
-        功能: 上传, 获取文章列表
+class SerializerPOSTArticle(serializers.ModelSerializer):
     """
-
-    # 设置为True，表明对应字段只在序列化操作时起作用
-    tag = SerializerTag(many=True)
-    content =  serializers.CharField(write_only=True, help_text='MarkDown格式', label='正文', style={'base_template': 'textarea.html'})
+        功能: 上传文章专用序列化器
+    """
 
     class Meta:
         model = Article
         fields = '__all__'
 
+        # 标题和摘要和标签和分类在创建文章对象时数据校验时不是必须传入
+        extra_kwargs = {
+            'desc': {
+                'required': False
+            },
+            'tag': {
+                'required': False
+            },
+            'category': {
+                'required': False
+            },
+            'title': {
+                'required': False
+            },
+        }
 
+
+# 文章列表序列化器类
+class SerializerArticleList(serializers.ModelSerializer):
+
+    tag = SerializerTag(many=True)
+
+    class Meta:
+        model = Article
+        fields = '__all__'
+        extra_kwargs = {
+            'content': {  # 设置为True，表明对应字段只在序列化操作时起作用
+                'write_only': True
+            },
+        }
 
 
 
