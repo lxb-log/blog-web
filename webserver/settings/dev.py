@@ -158,3 +158,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 指定自定义的用户认证后端:
 AUTHENTICATION_BACKENDS = ['users.utils.UsernameEmailAuthBackend']
 
+REST_FRAMEWORK = {
+    # 设置DRF框架所使用的全局分页类
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    # 指定页容量为2
+    "PAGE_SIZE": 2
+}
+
+

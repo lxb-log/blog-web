@@ -15,6 +15,10 @@ so, 我自己写了一个认证中间件, 让django根据我的验证规则, 去
 class DIYAuthenticatedMiddlewareMixin(MiddlewareMixin):
 
     def process_request(self, request):
+        # ----start---
+        # Django rest Framework开发时，web请求触发错误信息提示：{“detail”:”CSRF Failed: CSRF cookie not set.”}
+        setattr(request, '_dont_enforce_csrf_checks', True)
+        # -----end----
         authorization = request.headers.get('Authorization')
         # request.user = None
         request.user_id = None
@@ -27,7 +31,7 @@ class DIYAuthenticatedMiddlewareMixin(MiddlewareMixin):
             if payload:
                 request.is_refresh_token = payload.get('refresh', False)
                 data = payload.get('data', None)
-                print(payload)
+                # print(payload)
                 if data is not None:
                     request.user_id = data.get('user_id', None)
                     request.username = data.get('username', None)

@@ -25,7 +25,6 @@ class Category(CreatedTime):
     status = models.PositiveBigIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name="状态")
     in_nav = models.BooleanField(default=False, verbose_name="是否为导航")
     owner = models.ForeignKey(User, verbose_name="作者", on_delete=models.CASCADE)
-    created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     class Meta:
         verbose_name = verbose_name_plural = '分类'
