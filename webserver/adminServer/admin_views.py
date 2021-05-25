@@ -49,7 +49,7 @@ class TagAPIView(APIView):
 class ArticleDetailAPIView(APIView):
     def get(self, request, pk):
         """
-        获取所有的文章数据
+        获取文章详情
         """
         try:
             queryset = Article.objects.get(pk=pk)
