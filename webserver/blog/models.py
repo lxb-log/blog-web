@@ -29,6 +29,14 @@ class Category(CreatedTime):
     class Meta:
         verbose_name = verbose_name_plural = '分类'
 
+    def serialization(self):
+        data = {
+            "name": self.name,
+            "categoryID": self.pk,
+            "created_time": self.created_time
+        }
+        return data
+
 
 class Tag(CreatedTime):
     STATUS_NORMAL = 1
@@ -45,14 +53,22 @@ class Tag(CreatedTime):
     class Meta:
         verbose_name = verbose_name_plural = '标签'
 
+    def serialization(self):
+        data = {
+            "name": self.name,
+            "tagID": self.pk,
+            "created_time": self.created_time
+        }
+        return data
+
 
 class Article(CreatedTime):
     STATUS_NORMAL = 1
     STATUS_DELETE = 0
     STATUS_DRAFT = 2
     STATUS_ITEMS = (
-        (STATUS_DRAFT, "草稿"),
-        (STATUS_NORMAL, "正常"),
+        (STATUS_DRAFT, "草稿箱"),
+        (STATUS_NORMAL, "已发布"),
         (STATUS_DELETE, "删除")
     )
 
@@ -68,5 +84,22 @@ class Article(CreatedTime):
     class Meta:
         verbose_name = verbose_name_plural = '文章'
         ordering = ['-id']
+
+    def serialization(self, detail=False):
+        category = self.category.serialization() if self.category else None
+        tag = [t.serialization() for t in self.tag.all()]
+        data = {
+            "articleID": self.pk,
+            "title": self.title,
+            "desc": self.desc,
+            "status": self.status,
+            "status_zh": self.get_status_display(),
+            "category": category,
+            "tag": tag,
+            "created_time": self.created_time
+        }
+        if detail:
+            data["content"] = self.content
+        return data
 
 

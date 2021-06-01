@@ -6,11 +6,15 @@ from blog import views
 
 
 urlpatterns = [
-    # path('books/', views.ArticleListViewSet.as_view({
-    #     'get': 'list',
-    #     'post': 'create'
-    # })),
-    # path('books/(?P<pk>\d+)/', views.ArticleViewSet.as_view())
+    # 文章列表
+    path('article/', views.ArticleListView.as_view()),
+    # 文章详情
+    path('article/<int:pk>/', views.ArticleDetailView.as_view()),
+
+    # 分类
+    path('category/', views.CategoryView.as_view()),
+    # 标签
+    path('tag/', views.TagView.as_view()),
 ]
 
 
