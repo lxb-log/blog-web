@@ -165,4 +165,5 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 2
 }
 
-
+# 请求路径后面追加 /
+APPEND_SLASH = False

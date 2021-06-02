@@ -66,7 +66,12 @@ class ArticleDetailAPIView(APIView):
             return Response({'code': 404, 'errmsg': '文章不存在'})
 
         data = request.data
-        data['owner'] = request.user_id
+        # data['owner'] = request.user_id
+        try:
+            data['owner'] = 1
+        except Exception as e:
+            return Response({"errmsg": "参数传递方式错误, 请使用JSON格式! "}, status=status.HTTP_402_PAYMENT_REQUIRED)
+
         serializer = SerializerPOSTArticle(instance=queryset,data=data)
         serializer.is_valid(raise_exception=True)
         # 反序列化-数据保存(save内部会调用序列化器类的create方法)
@@ -109,7 +114,11 @@ class ArticleListAPIView(APIView):
         """
         # 反序列化-数据校验
         data = request.data
-        data['owner'] = request.user_id
+        # data['owner'] = request.user_id
+        try:
+            data['owner'] = 1
+        except Exception as e:
+            return Response({"errmsg": "参数传递方式错误, 请使用JSON格式! "}, status=status.HTTP_402_PAYMENT_REQUIRED)
         serializer = SerializerPOSTArticle(data=data)
         serializer.is_valid(raise_exception=True)
         # article = serializer.save()
