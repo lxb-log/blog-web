@@ -71,8 +71,8 @@ class TagDetailAPIView(APIView):
 
     def put(self, request, pk):
         try:
-            queryset = Category.objects.get(pk=pk)
-        except Category.DoesNotExist:
+            queryset = Tag.objects.get(pk=pk)
+        except Tag.DoesNotExist:
             return Response({'code': 404, 'errmsg': '文章标签不存在'})
 
         data = request.data
