@@ -11,5 +11,6 @@ urlpatterns = [
     path('article/<int:pk>/', admin_views.ArticleDetailAPIView.as_view()),  # 文章详情
     path('tag/', admin_views.TagAPIView.as_view()),
     path('category/', admin_views.CategoryAPIView.as_view()),
+    path('category/<int:pk>/', admin_views.CategoryDetailAPIView.as_view()),
 
 ]

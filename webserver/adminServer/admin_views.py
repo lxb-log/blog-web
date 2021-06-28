@@ -25,6 +25,28 @@ class CategoryAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+class CategoryDetailAPIView(APIView):
+
+    def put(self, request, pk):
+        try:
+            queryset = Category.objects.get(pk=pk)
+        except Category.DoesNotExist:
+            return Response({'code': 404, 'errmsg': '文章分类不存在'})
+
+        data = request.data
+        try:
+            data['owner'] = request.user_id
+        except Exception as e:
+            return Response({"errmsg": "参数传递方式错误, 请使用JSON格式! "}, status=status.HTTP_402_PAYMENT_REQUIRED)
+
+        serializer = SerializerCategory(instance=queryset, data=data)
+        serializer.is_valid(raise_exception=True)
+        # 反序列化-数据保存(save内部会调用序列化器类的create方法)
+        serializer.save()
+
+        return Response({'errmsg': '保存成功'}, status=status.HTTP_201_CREATED)
+
+
 # 标签
 class TagAPIView(APIView):
     def get(self, request):
